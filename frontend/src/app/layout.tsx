@@ -5,6 +5,7 @@ import QueryProvider from '@/lib/query-provider';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import Sidebar from '@/components/layout/Sidebar';
 import Header from '@/components/layout/Header';
+import KeepAlive from '@/components/KeepAlive';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -23,6 +24,7 @@ export default function RootLayout({
     <html lang="en" className="dark">
       <body className={`${inter.className} bg-[#0B0F17] text-slate-100 min-h-screen flex flex-col antialiased`}>
         <QueryProvider>
+          <KeepAlive />
           <TooltipProvider>
             <div className="flex h-screen overflow-hidden">
               {/* Desktop Sidebar */}
