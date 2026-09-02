@@ -103,7 +103,7 @@ The application is engineered using a **Decoupled Client-Server SaaS Architectur
 
 ## 7. AI Tools Used
 
-1. **Google Antigravity (Agentic AI Assistant)**:
+1. **Claude**:
    - Used for full-stack pair-programming, generating NestJS services, controllers, DTOs, Mongoose schemas, and Next.js React components.
    - Guided state machine business logic validation, Socket.IO gateway setup, and TypeScript type safety across frontend and backend.
    - Generated realistic seed data comprising 520+ Indian vehicle service bookings across a 90-day operational timeline.
