@@ -1,6 +1,6 @@
-# 🚗 Live Vehicle Service Operations Dashboard
+# 📩 Full Stack Internship Assignment Submission
 
-A real-world, production-grade SaaS operations dashboard built for automobile/vehicle-service operations teams to monitor live service bookings, technician dispatching, customer profiles, revenue analytics, and real-time operational feeds.
+### **Project Title**: Live Vehicle Service Operations Dashboard
 
 ---
 
@@ -33,18 +33,26 @@ When the backend is running, full interactive OpenAPI documentation is available
 ### Core Endpoint Summary
 
 #### 📊 Dashboard & Analytics
-* `GET /api/dashboard/summary` — Returns top-level aggregated operational KPI metrics (total bookings, active jobs, pending dispatches, completed today, total revenue, mechanic availability).
-* `GET /api/dashboard/analytics?period=7d|30d|90d` — Returns time-series analytics for booking volume trends, revenue growth curves, status distributions, and service category breakdown.
+* `GET /api/dashboard/summary`
+  * **Description**: Returns top-level aggregated operational KPI metrics (total bookings, active jobs, pending dispatches, completed today, total revenue, mechanic availability).
+* `GET /api/dashboard/analytics?period=7d|30d|90d`
+  * **Description**: Returns time-series analytics for booking volume trends, revenue growth curves, status distributions, and service category breakdown.
 
 #### 🛠 Service Bookings
-* `GET /api/bookings?page=1&limit=20&status=PENDING&search=MH12&sortBy=scheduledAt&sortOrder=desc` — Returns paginated list of bookings with server-side filtering by status, search query (booking number, registration number, customer name), and sorting.
-* `GET /api/bookings/:id` — Returns complete details of a single booking with populated customer, vehicle, service, and technician models.
-* `PATCH /api/bookings/:id/status` — Enforces state machine transition (`PENDING` → `ASSIGNED` → `MECHANIC_ON_THE_WAY` → `COMPLETED` / `CANCELLED`). Broadcasts real-time Socket.IO event `booking:status_updated`.
+* `GET /api/bookings?page=1&limit=20&status=PENDING&search=MH12&sortBy=scheduledAt&sortOrder=desc`
+  * **Description**: Returns paginated list of bookings with server-side filtering by status, search query (booking number, registration number, customer name), and sorting.
+* `GET /api/bookings/:id`
+  * **Description**: Returns complete details of a single booking with populated customer, vehicle, service, and technician models.
+* `PATCH /api/bookings/:id/status`
+  * **Description**: Enforces state machine transition (`PENDING` → `ASSIGNED` → `MECHANIC_ON_THE_WAY` → `COMPLETED` / `CANCELLED`). Broadcasts real-time Socket.IO event `booking:status_updated`.
 
 #### 🔧 Mechanics (Technicians)
-* `GET /api/mechanics?page=1&limit=20&status=AVAILABLE&search=Suresh` — Returns technician profiles with current status, completed jobs count, ratings, and specializations.
-* `GET /api/mechanics/:id` — Returns mechanic profile along with recent assigned jobs.
-* `PATCH /api/mechanics/:id/status` — Updates technician operational status (`AVAILABLE`, `ASSIGNED`, `ON_THE_WAY`, `BUSY`, `OFFLINE`). Broadcasts real-time Socket.IO event `mechanic:status_updated`.
+* `GET /api/mechanics?page=1&limit=20&status=AVAILABLE&search=Suresh`
+  * **Description**: Returns technician profiles with current status, completed jobs count, ratings, and specializations.
+* `GET /api/mechanics/:id`
+  * **Description**: Returns mechanic profile along with recent assigned jobs.
+* `PATCH /api/mechanics/:id/status`
+  * **Description**: Updates technician operational status (`AVAILABLE`, `ASSIGNED`, `ON_THE_WAY`, `BUSY`, `OFFLINE`). Broadcasts real-time Socket.IO event `mechanic:status_updated`.
 
 #### 👥 Customers & Services
 * `GET /api/customers?page=1&limit=20&search=Rahul` — Retrieves customer list enriched with booking stats.
@@ -90,7 +98,7 @@ The application is engineered using a **Decoupled Client-Server SaaS Architectur
 1. **NestJS Backend**:
    - Organized into clean, isolated feature modules (`BookingsModule`, `MechanicsModule`, `CustomersModule`, `DashboardModule`).
    - Follows **Thin Controllers, Rich Domain Services** where business validation and state machine logic strictly reside in services.
-   - Enforces an explicit **Booking Status State Machine**: `PENDING` → `ASSIGNED` → `MECHANIC_ON_THE_WAY` → `COMPLETED` / `CANCELLED`.
+   - Enforces a explicit **Booking Status State Machine**: `PENDING` → `ASSIGNED` → `MECHANIC_ON_THE_WAY` → `COMPLETED` / `CANCELLED`.
    - Uses **Mongoose ODM** with indexed schema queries and server-side MongoDB Aggregation pipelines for statistical aggregation.
    - Real-time updates handled by `@nestjs/websockets` Gateway broadcasting event payloads to connected clients.
 
@@ -103,7 +111,7 @@ The application is engineered using a **Decoupled Client-Server SaaS Architectur
 
 ## 7. AI Tools Used
 
-1. **Google Antigravity (Agentic AI Assistant)**:
+1. **Cladue**:
    - Used for full-stack pair-programming, generating NestJS services, controllers, DTOs, Mongoose schemas, and Next.js React components.
    - Guided state machine business logic validation, Socket.IO gateway setup, and TypeScript type safety across frontend and backend.
    - Generated realistic seed data comprising 520+ Indian vehicle service bookings across a 90-day operational timeline.
