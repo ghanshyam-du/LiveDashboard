@@ -12,7 +12,10 @@ export class CustomersService {
     @InjectModel(Booking.name) private readonly bookingModel: Model<BookingDocument>,
   ) {}
 
-  async findAll(query: GetCustomersQueryDto) {
+  async findAll(query: GetCustomersQueryDto): Promise<{
+    data: any[];
+    pagination: { page: number; limit: number; total: number; totalPages: number };
+  }> {
     const { page = 1, limit = 20, search } = query;
 
     const filter: Record<string, unknown> = {};

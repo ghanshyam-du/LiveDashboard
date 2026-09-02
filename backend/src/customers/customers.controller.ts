@@ -10,7 +10,7 @@ export class CustomersController {
 
   @Get()
   @ApiOperation({ summary: 'List customers with booking stats' })
-  findAll(@Query() query: GetCustomersQueryDto) {
+  async findAll(@Query() query: GetCustomersQueryDto) {
     return this.customersService.findAll(query);
   }
 
