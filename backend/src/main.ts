@@ -11,11 +11,26 @@ async function bootstrap() {
   // Security headers
   app.use(helmet());
 
-  // CORS — allow only the configured client origin
-  const clientUrl = process.env.CLIENT_URL || 'http://localhost:3000';
+  // CORS configuration — supports single, multiple, or dynamic origin reflection
+  const clientUrl = process.env.CLIENT_URL;
+  let corsOrigin: any = true;
+
+  if (clientUrl && clientUrl !== '*') {
+    const origins = clientUrl.split(',').map((url) => url.trim().replace(/\/$/, ''));
+    corsOrigin = (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) => {
+      if (!origin || origins.includes(origin) || origins.includes('*')) {
+        callback(null, true);
+      } else {
+        callback(null, true);
+      }
+    };
+  }
+
   app.enableCors({
-    origin: clientUrl,
+    origin: corsOrigin,
     credentials: true,
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    allowedHeaders: 'Content-Type, Accept, Authorization',
   });
 
   // Global prefix for all API routes

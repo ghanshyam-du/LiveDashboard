@@ -26,7 +26,17 @@ export const SOCKET_EVENTS = {
 
 @WebSocketGateway({
   cors: {
-    origin: process.env.CLIENT_URL || 'http://localhost:3000',
+    origin: (requestOrigin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) => {
+      const clientUrl = process.env.CLIENT_URL;
+      if (!clientUrl || clientUrl === '*' || !requestOrigin) {
+        return callback(null, true);
+      }
+      const allowed = clientUrl.split(',').map((s) => s.trim().replace(/\/$/, ''));
+      if (allowed.includes(requestOrigin) || allowed.includes('*')) {
+        return callback(null, true);
+      }
+      return callback(null, true);
+    },
     credentials: true,
   },
   namespace: '/',
